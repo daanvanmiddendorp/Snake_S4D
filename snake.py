@@ -19,6 +19,9 @@ running = True
 while running:
 
 
+
+
+
     pygame.draw.rect(screen, (100, 100, 180), player)
     # Handle events
     for event in pygame.event.get():
