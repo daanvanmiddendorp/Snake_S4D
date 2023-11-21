@@ -5,3 +5,5 @@ Hiermee willen wij pygame onder de knie krijgen en leren samen in github te werk
 What da dog doin
 
 Poepen
+
+Schijten
