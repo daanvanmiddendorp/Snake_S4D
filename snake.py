@@ -5,6 +5,8 @@ import pygame
 # Initialize Pygame
 pygame.init()
 
+#Test opmerking verplaatsen regels ten opzichte van code
+
 # Set up the screen
 screen_width = 800
 screen_height = 600
