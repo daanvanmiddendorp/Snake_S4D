@@ -9,10 +9,6 @@ screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Snake Game")
 
-
-player = pygame.Rect((300, 250, 50, 50))
-
-
 # Game loop
 running = True
 while running:
@@ -26,8 +22,12 @@ while running:
     # Update game logic
 
     # Render the screen
-    screen.fill((0, 0, 0))
+    screen.fill((255, 255, 255))
     pygame.display.flip()
+
+
+player = pygame.Rect((300, 250, 50, 50))
+
 
 # Quit Pygame
 pygame.quit()
