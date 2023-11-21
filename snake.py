@@ -8,4 +8,4 @@
 
 #Jullie zijn gemeen
 
-#wij zijn liefe mannen
+#wij zijn lieve mannen
