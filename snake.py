@@ -7,3 +7,5 @@
 #DIE MENNO KAN ER NIKS VAN
 
 #Jullie zijn gemeen
+
+#wij zijn liefe mannen
