@@ -1,13 +1,27 @@
-#sexy boys komen jullie programmeren met mij?
+import pygame
 
-#ja graag
+# Initialize Pygame
+pygame.init()
 
-#HET IS OOK MOEILIJK MENNO! *zucht*
+# Set up the screen
+screen_width = 800
+screen_height = 600
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("Snake Game")
 
-#DIE MENNO KAN ER NIKS VAN
+# Game loop
+running = True
+while running:
+    # Handle events
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
 
-#Jullie zijn gemeen
+    # Update game logic
 
-#wij zijn lieve mannen <3
+    # Render the screen
+    screen.fill((0, 0, 0))
+    pygame.display.flip()
 
-#test 1002
+# Quit Pygame
+pygame.quit()
