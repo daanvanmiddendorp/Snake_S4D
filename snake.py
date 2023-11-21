@@ -13,6 +13,8 @@ pygame.display.set_caption("Snake Game")
 running = True
 while running:
 
+    player = pygame.Rect((300, 250, 50, 50))
+
     pygame.draw.rect(screen, (255, 40, 80), player)
     # Handle events
     for event in pygame.event.get():
@@ -20,14 +22,6 @@ while running:
             running = False
 
     # Update game logic
-
-    # Render the screen
-    screen.fill((255, 255, 255))
-    pygame.display.flip()
-
-
-player = pygame.Rect((300, 250, 50, 50))
-
 
 # Quit Pygame
 pygame.quit()
