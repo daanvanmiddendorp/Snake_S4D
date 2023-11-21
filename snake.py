@@ -12,7 +12,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Square test v2")
 
 
-player = pygame.Rect((300, 250, 50, 50))
+player = pygame.Rect((300, 250, 200, 50))
 
 # Game loop
 running = True
