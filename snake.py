@@ -17,7 +17,7 @@ running = True
 while running:
 
 
-    pygame.draw.rect(screen, (255, 40, 80), player)
+    pygame.draw.rect(screen, (255, 230, 80), player)
     # Handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
