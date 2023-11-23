@@ -216,6 +216,10 @@ class MAIN:
             self.snake.add_block()
             self.snake.play_crunch_sound() #plays the crunch sound when the snake has a collision (eats a apple)
 
+        for block in self.snake.body[1:]: #checks every block in the snakes body if the fruit is placed inside the body it gets a new position
+            if block == self.fruit.pos:
+                self.fruit.randomize()
+
     def check_fail(self):
         if not 0 <= self.snake.body[0].x < cell_number:
             self.game_over()
