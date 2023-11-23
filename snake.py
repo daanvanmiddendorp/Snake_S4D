@@ -11,6 +11,17 @@ class FRUIT:
         fruit_rect = pygame.Rect(int(self.pos.x * cell_size),int(self.pos.y * cell_size),cell_size,cell_size) 
         pygame.draw.rect(screen,(126,166,114),fruit_rect)
 
+class SNAKE:
+    def __init__(self):
+        self.body = [Vector2(5,10),Vector2(6,10),Vector2(7,10)] # snake body
+
+    def draw_snake(self):
+        for block in self.body: # for every block in the body list
+            x_pos = int(block.x * cell_size) # x position of the block
+            y_pos = int(block.y * cell_size) # y position of the block
+            block_rect = pygame.Rect(x_pos,y_pos,cell_size,cell_size) # create a rectangle
+            pygame.draw.rect(screen,(183,111,122),block_rect)
+
 
 pygame.init()
 cell_size = 40
@@ -20,6 +31,7 @@ clock = pygame.time.Clock()
 
 
 fruit = FRUIT()
+snake = SNAKE()
 
 while True:
     for event in pygame.event.get():
@@ -29,6 +41,7 @@ while True:
 
     screen.fill((175,215,70))
     fruit.draw_fruit() # from class FRUIT draw_fruit method in while loop
+    snake.draw_snake() # from class SNAKE draw_snake method in while loop
     pygame.display.update()
     clock.tick(60)
 
