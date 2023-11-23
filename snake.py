@@ -10,6 +10,10 @@ font_dir = os.path.join(
     snake_dir, "font/"
 ) # font directory is in main directory
 
+sound_dir = os.path.join(
+    snake_dir, "sound/"
+) # sound directory is in main directory
+
 
 class FRUIT:
     def __init__(self):
@@ -76,6 +80,7 @@ class SNAKE:
         self.body_tl = pygame.image.load(graphics_dir + "body_tl.png").convert_alpha()
         self.body_br = pygame.image.load(graphics_dir + "body_br.png").convert_alpha()
         self.body_bl = pygame.image.load(graphics_dir + "body_bl.png").convert_alpha()
+        self.crunch_sound = pygame.mixer.Sound(sound_dir + "crunch.wav") #this is the crunch sound
 
     def draw_snake(self):
         self.update_head_graphics()
@@ -183,6 +188,9 @@ class SNAKE:
     def add_block(self):
         self.new_block = True
 
+    def play_crunch_sound(self): #plays the crunch sound
+        self.crunch_sound.play()
+
 
 class MAIN:
     def __init__(self):
@@ -206,6 +214,7 @@ class MAIN:
             # print("jummie")
             self.fruit.randomize()
             self.snake.add_block()
+            self.snake.play_crunch_sound() #plays the crunch sound when the snake has a collision (eats a apple)
 
     def check_fail(self):
         if not 0 <= self.snake.body[0].x < cell_number:
@@ -250,7 +259,7 @@ class MAIN:
         screen.blit(apple,apple_rect)
         pygame.draw.rect(screen,(56,74,12),bg_rect,2)
 
-
+pygame.mixer.pre_init(44100,-16,2,512) #preloads the sound so there is no delay
 pygame.init()
 cell_size = 40
 cell_number = 20
