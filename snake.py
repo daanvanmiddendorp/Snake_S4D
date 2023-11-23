@@ -32,6 +32,7 @@ class FRUIT:
             cell_size,
         )
 
+
 class SNAKE:
     def __init__(self):
         self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]  # snake body
@@ -256,4 +257,4 @@ while True:
     screen.fill((175, 215, 70))
     main_game.draw_elements()
     pygame.display.update()
-    clock.tick(60)  #
+    clock.tick(60)
