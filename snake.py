@@ -1,5 +1,10 @@
-import pygame, sys, random
+import pygame, sys, random, os
 from pygame.math import Vector2
+
+snake_dir = os.path.dirname(__file__)  # main directory snake.py is in
+graphics_dir = os.path.join(
+    snake_dir, "graphics/"
+)  # graphics directory is in main directory
 
 
 class FRUIT:
@@ -27,14 +32,129 @@ class SNAKE:
         self.direction = Vector2(1, 0)
         self.new_block = False
 
+        self.head_up = pygame.image.load(graphics_dir + "head_up.png").convert_alpha()
+        self.head_down = pygame.image.load(
+            graphics_dir + "head_down.png"
+        ).convert_alpha()
+        self.head_right = pygame.image.load(
+            graphics_dir + "head_right.png"
+        ).convert_alpha()
+        self.head_left = pygame.image.load(
+            graphics_dir + "head_left.png"
+        ).convert_alpha()
+
+        self.tail_up = pygame.image.load(graphics_dir + "tail_up.png").convert_alpha()
+        self.tail_down = pygame.image.load(
+            graphics_dir + "tail_down.png"
+        ).convert_alpha()
+        self.tail_right = pygame.image.load(
+            graphics_dir + "tail_right.png"
+        ).convert_alpha()
+        self.tail_left = pygame.image.load(
+            graphics_dir + "tail_left.png"
+        ).convert_alpha()
+
+        self.body_vertical = pygame.image.load(
+            graphics_dir + "body_vertical.png"
+        ).convert_alpha()
+        self.body_horizontal = pygame.image.load(
+            graphics_dir + "body_horizontal.png"
+        ).convert_alpha()
+
+        self.body_tr = pygame.image.load(graphics_dir + "body_tr.png").convert_alpha()
+        self.body_tl = pygame.image.load(graphics_dir + "body_tl.png").convert_alpha()
+        self.body_br = pygame.image.load(graphics_dir + "body_br.png").convert_alpha()
+        self.body_bl = pygame.image.load(graphics_dir + "body_bl.png").convert_alpha()
+
     def draw_snake(self):
-        for block in self.body:  # for every block in the body list
+        self.update_head_graphics()
+        self.update_tail_graphics()
+
+        for index, block in enumerate(
+            self.body
+        ):  # for block in self.body: # for every block in the body list
+            # 1. create a rectangle for the positioning
             x_pos = int(block.x * cell_size)  # x position of the block
             y_pos = int(block.y * cell_size)  # y position of the block
             block_rect = pygame.Rect(
                 x_pos, y_pos, cell_size, cell_size
             )  # create a rectangle
-            pygame.draw.rect(screen, (183, 111, 122), block_rect)
+
+            # 2. what direction is the face and the tail heading
+            if index == 0:
+                screen.blit(self.head, block_rect)
+            elif index == len(self.body) - 1:
+                screen.blit(self.tail, block_rect)
+            else:
+                previous_block = (
+                    self.body[index + 1] - block
+                )  # take the current element and add 1 to it to get the previous block
+                next_block = (
+                    self.body[index - 1] - block
+                )  # take the current element and subtract 1 to it to get the next block
+                if (
+                    previous_block.x == next_block.x
+                ):  # if the snake is moving vertically
+                    screen.blit(self.body_vertical, block_rect)
+                elif (
+                    previous_block.y == next_block.y
+                ):  # if the snake is moving horizontally
+                    screen.blit(self.body_horizontal, block_rect)
+                else:  # if the snake is turning
+                    if (
+                        previous_block.x == -1
+                        and next_block.y == -1
+                        or previous_block.y == -1
+                        and next_block.x == -1
+                    ):  # if the snake is turning top left
+                        screen.blit(self.body_tl, block_rect)
+                    elif (
+                        previous_block.x == -1
+                        and next_block.y == 1
+                        or previous_block.y == 1
+                        and next_block.x == -1
+                    ):  # if the snake is turning down left
+                        screen.blit(self.body_bl, block_rect)
+                    elif (
+                        previous_block.x == 1
+                        and next_block.y == -1
+                        or previous_block.y == -1
+                        and next_block.x == 1
+                    ):  # if the snake is turning top right
+                        screen.blit(self.body_tr, block_rect)
+                    elif (
+                        previous_block.x == 1
+                        and next_block.y == 1
+                        or previous_block.y == 1
+                        and next_block.x == 1
+                    ):  # if the snake is turning bottom right
+                        screen.blit(self.body_br, block_rect)
+
+    def update_head_graphics(self):  # updates the head to look in the right direction
+        head_relation = (
+            self.body[1] - self.body[0]
+        )  # get the relation between the head and the second block
+        if head_relation == Vector2(1, 0):
+            self.head = self.head_left
+        elif head_relation == Vector2(-1, 0):
+            self.head = self.head_right
+        elif head_relation == Vector2(0, 1):
+            self.head = self.head_up
+        elif head_relation == Vector2(0, -1):
+            self.head = self.head_down
+
+    def update_tail_graphics(self):  # updates the head to look in the right direction
+        tail_relation = (
+            self.body[-2] - self.body[-1]
+        )  # get the relation between the second to last block and the last (tail) block
+        if tail_relation == Vector2(1, 0):
+            self.tail = self.tail_left
+        elif tail_relation == Vector2(-1, 0):
+            self.tail = self.tail_right
+        elif tail_relation == Vector2(0, 1):
+            self.tail = self.tail_up
+        elif tail_relation == Vector2(0, -1):
+            self.tail = self.tail_down
 
     def move_snake(self):
         if self.new_block == True:
