@@ -2,4 +2,4 @@
 
 Dit is ons kleine project opdracht waarmee we als groep de game snake gaat maken in pygame.
 Hiermee willen wij pygame onder de knie krijgen en leren samen in github te werken.
-test sascha , test Daan
+test sascha , test Daan , nog een test
