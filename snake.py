@@ -199,6 +199,10 @@ class MAIN:
             self.fruit.randomize()
             self.snake.add_block()
 
+    def check_fail(self):
+        print("test")
+
+
 
 pygame.init()
 cell_size = 40
