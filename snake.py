@@ -18,7 +18,7 @@ class FRUIT:
             cell_size,
             cell_size,
         )
-        pygame.draw.rect(screen, (126, 166, 114), fruit_rect)
+        screen.blit(apple, fruit_rect)
 
     def randomize(self):
         self.x = random.randint(0, cell_number - 1)
@@ -31,7 +31,7 @@ class FRUIT:
             cell_size,
             cell_size,
         )
-        screen.blit(apple, fruit_rect)
+
         # pygame.draw.rect(screen,(126,166,114),fruit_rect)
 
 
