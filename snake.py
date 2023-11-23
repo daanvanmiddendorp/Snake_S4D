@@ -34,6 +34,23 @@ class MAIN:
         self.fruit.draw_fruit()
         self.snake.draw_snake()
 
+class SNAKE:
+    def __init__(self):
+        self.body = [Vector2(5,10),Vector2(6,10),Vector2(7,10)] # snake body
+        self.direction = Vector2(1,0)
+
+    def draw_snake(self):
+        for block in self.body: # for every block in the body list
+            x_pos = int(block.x * cell_size) # x position of the block
+            y_pos = int(block.y * cell_size) # y position of the block
+            block_rect = pygame.Rect(x_pos,y_pos,cell_size,cell_size) # create a rectangle
+            pygame.draw.rect(screen,(183,111,122),block_rect)
+
+    def move_snake(self):
+        body_copy = self.body[:-1] # copy the body list without the last element
+        body_copy.insert(0,body_copy[0] + self.direction) # insert a new element at the beginning of the list
+        self.body = body_copy[:] # copy the body_copy list to the body list
+
 
 pygame.init()
 cell_size = 40
@@ -45,6 +62,10 @@ clock = pygame.time.Clock()
 # fruit = FRUIT() # niet meer nodig
 main_game = MAIN()
 
+SCREEN_UPDATE = pygame.USEREVENT #user event is a custom event 
+pygame.time.set_timer(SCREEN_UPDATE,150) # this event will be triggered every 150 milliseconds
+
+# event loop
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
