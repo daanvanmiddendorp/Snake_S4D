@@ -6,7 +6,6 @@ graphics_dir = os.path.join(snake_dir, "graphics/")  # graphics directory is in 
 font_dir = os.path.join(snake_dir, "font/") # font directory is in main directory
 sound_dir = os.path.join(snake_dir, "sound/") # sound directory is in main directory
 
-
 class FRUIT:
     def __init__(self):
         self.randomize()
