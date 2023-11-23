@@ -1,39 +1,15 @@
+import pygame,sys,random
+from pygame.math import Vector2
 
-
-import pygame
-
-# Initialize Pygame
 pygame.init()
+screen = pygame.display.set_mode((400,500))
+clock = pygame.time.Clock()
 
-#Test opmerking verplaatsen regels ten opzichte van code
-
-# Set up the screen
-screen_width = 800
-screen_height = 600
-screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("Square test v2")
-
-
-player = pygame.Rect((300, 250, 200, 50))
-
-# Game loop
-running = True
-while running:
-
-
-
-
-
-    pygame.draw.rect(screen, (100, 100, 180), player)
-    # Handle events
+while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
-
-
-    #update screen
-    pygame.display.flip()
-
-# Quit Pygame
-pygame.quit()
+            pygame.quit()
+            sys.exit()
+    pygame.display.update()
+    clock.tick(60)
 
