@@ -25,9 +25,15 @@ class FRUIT:
         self.y = random.randint(0, cell_number - 1)
         self.pos = Vector2(self.x, self.y)
 
-        fruit_rect = pygame.Rect(int(self.pos.x * cell_size),int(self.pos.y * cell_size),cell_size,cell_size) 
-        screen.blit(apple,fruit_rect)
+        fruit_rect = pygame.Rect(
+            int(self.pos.x * cell_size),
+            int(self.pos.y * cell_size),
+            cell_size,
+            cell_size,
+        )
+        screen.blit(apple, fruit_rect)
         # pygame.draw.rect(screen,(126,166,114),fruit_rect)
+
 
 class SNAKE:
     def __init__(self):
@@ -133,24 +139,37 @@ class SNAKE:
                     ):  # if the snake is turning bottom right
                         screen.blit(self.body_br, block_rect)
 
-    def update_head_graphics(self): # updates the head to face in the right direction
-        head_relation = self.body[1] - self.body[0] # get the relation between the head and the second block
-        if head_relation == Vector2(1,0): self.head = self.head_left
-        elif head_relation == Vector2(-1,0): self.head = self.head_right
-        elif head_relation == Vector2(0,1): self.head = self.head_up
-        elif head_relation == Vector2(0,-1): self.head = self.head_down
+    def update_head_graphics(self):  # updates the head to face in the right direction
+        head_relation = (
+            self.body[1] - self.body[0]
+        )  # get the relation between the head and the second block
+        if head_relation == Vector2(1, 0):
+            self.head = self.head_left
+        elif head_relation == Vector2(-1, 0):
+            self.head = self.head_right
+        elif head_relation == Vector2(0, 1):
+            self.head = self.head_up
+        elif head_relation == Vector2(0, -1):
+            self.head = self.head_down
 
-    def update_tail_graphics(self): # updates the tail to face in the right direction
-        tail_relation = self.body[-2] - self.body[-1] # get the relation between the second to last block and the last (tail) block
-        if tail_relation == Vector2(1,0): self.tail = self.tail_left
-        elif tail_relation == Vector2(-1,0): self.tail = self.tail_right
-        elif tail_relation == Vector2(0,1): self.tail = self.tail_up
-        elif tail_relation == Vector2(0,-1): self.tail = self.tail_down
+    def update_tail_graphics(self):  # updates the tail to face in the right direction
+        tail_relation = (
+            self.body[-2] - self.body[-1]
+        )  # get the relation between the second to last block and the last (tail) block
+        if tail_relation == Vector2(1, 0):
+            self.tail = self.tail_left
+        elif tail_relation == Vector2(-1, 0):
+            self.tail = self.tail_right
+        elif tail_relation == Vector2(0, 1):
+            self.tail = self.tail_up
+        elif tail_relation == Vector2(0, -1):
+            self.tail = self.tail_down
 
     def move_snake(self):
         if self.new_block == True:
             body_copy = self.body[:]
             body_copy.insert(0, body_copy[0] + self.direction)
+            self.body = body_copy[:]
             self.new_block = False
         else:
             body_copy = self.body[:-1]  # copy the body list without the last element
@@ -189,7 +208,7 @@ cell_size = 40
 cell_number = 20
 screen = pygame.display.set_mode((cell_number * cell_size, cell_number * cell_size))
 clock = pygame.time.Clock()
-apple = pygame.image.load(graphics_dir + 'apple.png').convert_alpha()
+apple = pygame.image.load(graphics_dir + "apple.png").convert_alpha()
 
 main_game = MAIN()
 
