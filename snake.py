@@ -44,7 +44,7 @@ class FRUIT:
 class SNAKE:
     def __init__(self):
         self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]  # snake body
-        self.direction = Vector2(1, 0)
+        self.direction = Vector2(0, 0)
         self.new_block = False
 
         self.head_up = pygame.image.load(graphics_dir + "head_up.png").convert_alpha()
@@ -190,6 +190,10 @@ class SNAKE:
 
     def play_crunch_sound(self): #plays the crunch sound
         self.crunch_sound.play()
+    
+    def reset(self): #when you fail the game the snake gets the same length as at the start and is placed in the same position
+        self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]
+        self.direction = Vector2(0, 0)
 
 
 class MAIN:
@@ -232,8 +236,7 @@ class MAIN:
                 self.game_over()
 
     def game_over(self):
-        pygame.quit()
-        sys.exit()
+        self.snake.reset()
 
     def draw_grass(self):
         grass_color = (137,209,61)
