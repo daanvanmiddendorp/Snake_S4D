@@ -32,9 +32,6 @@ class FRUIT:
             cell_size,
         )
 
-        # pygame.draw.rect(screen,(126,166,114),fruit_rect)
-
-
 class SNAKE:
     def __init__(self):
         self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]  # snake body
