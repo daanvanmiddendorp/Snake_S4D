@@ -130,8 +130,20 @@ class MAIN:
         self.snake = SNAKE()
         self.fruit = FRUIT()
 
+        self.current_direction = Vector2(1, 0)  # Default starting direction (right)
+        self.pending_direction = None  # Store a pending direction change
+
+    def update_direction(self, new_direction):
+        if new_direction != -self.current_direction:
+            self.pending_direction = new_direction  # Store the pending direction change
+
     def update(self):
-        self.snake.move_snake()  # call the move_snake method so every 150 milliseconds the snake moves
+        if self.pending_direction:
+            self.current_direction = self.pending_direction
+            self.snake.direction = self.current_direction
+            self.pending_direction = None  # Clear the pending direction change
+
+        self.snake.move_snake()
         self.check_collision()
         self.check_fail()
 
@@ -213,9 +225,7 @@ game_font = pygame.font.Font(font_dir + "PoetsenOne-Regular.ttf", 25)
 main_game = MAIN()
 
 SCREEN_UPDATE = pygame.USEREVENT  # user event is a custom event
-pygame.time.set_timer(
-    SCREEN_UPDATE, 150
-)  # this event will be triggered every 150 milliseconds
+pygame.time.set_timer(SCREEN_UPDATE, 150)  # this event will be triggered every 150 milliseconds
 
 # event loop
 while True:
@@ -223,22 +233,17 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        if event.type == SCREEN_UPDATE:  # if the event is triggered
+        if event.type == SCREEN_UPDATE:
             main_game.update()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
-                if main_game.snake.direction.y != 1:
-                    # zorgt ervoor dat je niet in tegengestelde richting kan gaan, zelfde bij andere toetsen
-                    main_game.snake.direction = Vector2(0, -1)  # move up -1 in y axis
+                main_game.update_direction(Vector2(0, -1))
             if event.key == pygame.K_DOWN:
-                if main_game.snake.direction.y != -1:
-                    main_game.snake.direction = Vector2(0, 1)  # move down 1 in y axis
+                main_game.update_direction(Vector2(0, 1))
             if event.key == pygame.K_LEFT:
-                if main_game.snake.direction.x != 1:
-                    main_game.snake.direction = Vector2(-1, 0)  # move left -1 in x axis
+                main_game.update_direction(Vector2(-1, 0))
             if event.key == pygame.K_RIGHT:
-                if main_game.snake.direction.x != -1:
-                    main_game.snake.direction = Vector2(1, 0)  # move right 1 in x axis
+                main_game.update_direction(Vector2(1, 0))
 
     screen.fill((175, 215, 70))
     main_game.draw_elements()
